@@ -18,8 +18,4 @@ public class MovieController {
     private String actionLabel;
     private MovieUITO movieUiTO;
     private List<MovieUITO> movieUiToList;
-
-    public void doSaveMovie() {
-
-    }
 }

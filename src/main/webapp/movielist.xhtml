@@ -13,13 +13,7 @@
             <p:panel header="Movie" id="movieInfoPnl">
                 <h:panelGrid columns="2" rows="1">
                     <p:outputLabel for="name" value="Movie name: " />
-                    <p:inputText id="name" size="40"
-                                 value="#{movieController.movieUiTO.movieName}" required="true"
-                                 requiredMessage="Please enter a movie name " />
-                    <h:commandButton value="#{movieController.actionLabel}"
-                                     action="#{movieController.doSaveMovie}">
-                        <f:ajax execute="movieForm" render="movielist movieInfoPnl" />
-                    </h:commandButton>
+
                 </h:panelGrid>
             </p:panel>
 

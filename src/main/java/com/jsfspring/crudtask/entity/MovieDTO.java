@@ -21,28 +21,28 @@ public class MovieDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Movie_Id")
-	private Long movieId;
-	@Column(name = "Movie_Name")
-	private String MovieName;
+	@Column(name = "DEPT_ID")
+	private Long deptId;
+	@Column(name = "Dept_Name")
+	private String deptName;
 
 	@OneToMany(mappedBy = "movieDTO")
 	private List<ViewerDTO> viewerdtolst;
 
 	public Long getDeptId() {
-		return movieId;
+		return deptId;
 	}
 
 	public void setDeptId(Long deptId) {
-		this.movieId = deptId;
+		this.deptId = deptId;
 	}
 
 	public String getDeptName() {
-		return MovieName;
+		return deptName;
 	}
 
 	public void setDeptName(String deptName) {
-		this.MovieName = deptName;
+		this.deptName = deptName;
 	}
 
 	public List<ViewerDTO> getViewerdtolst() {
