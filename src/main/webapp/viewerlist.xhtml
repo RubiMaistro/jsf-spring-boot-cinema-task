@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+<ui:composition template="layout.xhtml">
+	<ui:define name="content">
+		<h:form id="viewerForm">
+					<p:panel header="Viewer Info" id="viewerInfoPnl">
+						<h:panelGrid columns="2">
+							<p:outputLabel for="name" value="Viewer Name: " />
+							<p:inputText id="name" size="40"
+								value="#{viewerController.viewerUiTO.viewerName}" required="true"
+								requiredMessage="Please enter viewer name " />
+							<p:outputLabel for="viewerpassword" value="Password: " />
+							<p:password id="viewerpassword" size="40"
+								value="#{viewerController.viewerUiTO.password}" />
+							<p:outputLabel for="vieweremail" value="E-Mail : " />
+							<p:inputText id="vieweremail"
+								value="#{viewerController.viewerUiTO.emailId}" size="40"
+								required="true" label="Email Address">
+
+								<f:validator validatorId="customEmailValidator" />
+							</p:inputText>
+							<p:outputLabel for="vieweraddres" value="Address " />
+							<p:inputTextarea id="vieweraddres" rows="4" cols="50"
+								value="#{viewerController.viewerUiTO.address1}" />
+							<p:outputLabel for="viewerdept" value="Movie " />
+
+							<p:selectOneMenu id="viewerdept"
+								value="#{viewerController.viewerUiTO.movieUITO}"
+								style="width:150px" converter="#{deptConverter}">
+								<f:selectItems value="#{viewerController.movieUiToList}"
+									var="movieUITO" itemLabel="#{movieUITO.deptName}"
+									itemValue="#{movieUITO}" />
+
+							</p:selectOneMenu>
+							<h:commandButton value="#{viewerController.actionLabel}"
+								action="#{viewerController.doSaveInfoViewer}">
+								<f:ajax execute="viewerForm" render="viewerlist viewerInfoPnl" />
+							</h:commandButton>
+						</h:panelGrid>
+					</p:panel>
+
+			<p:panel header="Viewer List" id="viewerList">
+				<p:dataTable id="table" var="viewer"
+					value="#{viewerController.viewerUiToList}">
+					<p:column>
+						<f:facet name="header"># Viewer Id</f:facet>
+						<h:outputText value="#{viewer.viewerId}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">Name</f:facet>
+						<h:outputText value="#{viewer.viewerName}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">Address </f:facet>
+						<h:outputText value="#{viewer.address1}">
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Email </f:facet>
+						<h:outputText value="#{viewer.emailId}">
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Movie </f:facet>
+						<h:outputText value="#{viewer.movieUITO.deptName}" />
+					</p:column>
+					<p:column id="action">
+						<f:facet name="header">Action</f:facet>
+						<h:commandLink value="Edit"
+							action="#{viewerController.editViewer(viewer)}">
+							<f:ajax execute="action" render="viewerForm" />
+						</h:commandLink> /
+						  <sec:authorize access="hasRole('ROLE_ADMIN')">
+							<h:commandLink value="Delete"
+								action="#{viewerController.deleteViewer(viewer)}">
+								<f:ajax execute="action" render="table" />
+							</h:commandLink>
+						</sec:authorize>
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
