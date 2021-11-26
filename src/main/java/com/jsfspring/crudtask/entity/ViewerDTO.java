@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.jsfspring.crudtask.entity;
 
 import java.io.Serializable;
@@ -17,11 +14,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NamedQuery;
 
-/**
- * @author s727952
- *
- */
-
 @Entity
 @Table(name = "VIEWER_INFO")
 @NamedQuery(name = "ViewerDTO.findAll", query = "SELECT a FROM ViewerDTO a")
@@ -32,12 +24,13 @@ public class ViewerDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long viewerId;
 	@Column(name = "VIEWER_NAME", nullable = false)
 	private String viewerName;
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
+	@Column(name = "ID_ADDRESS", nullable = false)
 	private String address1;
 	@Column(name = "EMAIL_ID")
 	private String emailId;

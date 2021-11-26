@@ -14,4 +14,6 @@ public interface MovieService {
 
 	MovieUITO getMovie(MovieUITO movieUITO);
 
+	void doDeleteMovie(MovieUITO movieUITO);
+
 }

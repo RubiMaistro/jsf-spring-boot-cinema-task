@@ -16,31 +16,31 @@
 		</f:view>
 	</ui:define>
 	<ui:define name="content">
-		<h:form id="viewerForm">
-					<p:panel header="Viewer Info" id="viewerInfoPnl">
+		<h:form class="form" id="viewerForm" >
+					<p:panel class="p-add" header="Viewer Info" id="viewerInfoPnl">
 						<h:panelGrid columns="2">
 							<p:outputLabel for="name" value="Viewer Name: " />
-							<p:inputText id="name" size="40"
+							<p:inputText id="name" size="30"
 								value="#{viewerController.viewerUiTO.viewerName}" required="true"
 								requiredMessage="Please enter viewer name " />
 							<p:outputLabel for="viewerpassword" value="Password: " />
-							<p:password id="viewerpassword" size="40"
+							<p:password  id="viewerpassword" size="30"
 								value="#{viewerController.viewerUiTO.password}" />
 							<p:outputLabel for="vieweremail" value="E-Mail : " />
 							<p:inputText id="vieweremail"
-								value="#{viewerController.viewerUiTO.emailId}" size="40"
+								value="#{viewerController.viewerUiTO.emailId}" size="30"
 								required="true" label="Email Address">
 
 								<f:validator validatorId="customEmailValidator" />
 							</p:inputText>
-							<p:outputLabel for="vieweraddres" value="Address " />
-							<p:inputTextarea id="vieweraddres" rows="4" cols="50"
+							<p:outputLabel for="vieweraddres" value="ID Address " />
+							<p:inputText id="vieweraddres" size="30" required="true"
 								value="#{viewerController.viewerUiTO.address1}" />
 							<p:outputLabel for="viewermovie" value="Movie " />
 
 							<p:selectOneMenu id="viewermovie"
 								value="#{viewerController.viewerUiTO.movieUITO}"
-								style="width:150px" converter="#{movieConverter}">
+								style="width:50%" converter="#{movieConverter}">
 								<f:selectItems value="#{viewerController.movieUiToList}"
 									var="movieUITO" itemLabel="#{movieUITO.movieName}"
 									itemValue="#{movieUITO}" />
@@ -53,32 +53,32 @@
 						</h:panelGrid>
 					</p:panel>
 
-			<p:panel header="Viewer List" id="viewerlist">
-				<p:dataTable id="table" var="viewer"
+			<p:panel class="p-list" header="Viewer List" id="viewerlist">
+				<p:dataTable class="p-table" id="table" var="viewer"
 					value="#{viewerController.viewerUiToList}">
-					<p:column>
+					<p:column class="t-id">
 						<f:facet name="header"># Viewer Id</f:facet>
-						<h:outputText value="#{viewer.viewerId}" />
+						<h:outputText class="t-output" value="#{viewer.viewerId}" />
 					</p:column>
-					<p:column>
+					<p:column class="t-item">
 						<f:facet name="header">Name</f:facet>
-						<h:outputText value="#{viewer.viewerName}" />
+						<h:outputText class="t-output" value="#{viewer.viewerName}" />
 					</p:column>
-					<p:column>
-						<f:facet name="header">Address </f:facet>
-						<h:outputText value="#{viewer.address1}">
+					<p:column class="t-item">
+						<f:facet name="header">ID Address </f:facet>
+						<h:outputText class="t-output" value="#{viewer.address1}">
 						</h:outputText>
 					</p:column>
-					<p:column>
+					<p:column class="t-item">
 						<f:facet name="header">Email </f:facet>
-						<h:outputText value="#{viewer.emailId}">
+						<h:outputText class="t-output" value="#{viewer.emailId}">
 						</h:outputText>
 					</p:column>
-					<p:column>
+					<p:column class="t-item">
 						<f:facet name="header">Movie </f:facet>
-						<h:outputText value="#{viewer.movieUITO.movieName}" />
+						<h:outputText class="t-output" value="#{viewer.movieUITO.movieName}" />
 					</p:column>
-					<p:column id="action">
+					<p:column class="t-item" id="action">
 						<f:facet name="header">Action</f:facet>
 						<h:commandLink value="Edit"
 							action="#{viewerController.editViewer(viewer)}">
@@ -86,7 +86,7 @@
 						</h:commandLink> /
 						  <sec:authorize access="hasRole('ROLE_ADMIN')">
 							<h:commandLink value="Delete"
-								action="#{viewerController.deleteViewer(viewer)}">
+										   action="#{viewerController.deleteViewer(viewer)}">
 								<f:ajax execute="action" render="table" />
 							</h:commandLink>
 						</sec:authorize>

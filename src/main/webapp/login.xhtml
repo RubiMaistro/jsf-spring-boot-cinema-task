@@ -18,7 +18,7 @@
 			<h2>Please login</h2>
 
 			<p:outputLabel value="Login failed!" styleClass="red"
-				rendered="${!viewerty param['error']}" />
+				rendered="${!empty param['error']}" />
 
 			<p:inputText id="username"  placeholder="User name" />
 			<p:password id="password" placeholder="Password" />

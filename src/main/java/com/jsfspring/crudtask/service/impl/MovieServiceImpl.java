@@ -78,4 +78,10 @@ public class MovieServiceImpl implements MovieService {
 		BeanUtils.copyProperties(dto, uito);
 		return uito;
 	}
+
+	@Override
+	@Transactional
+	public void doDeleteMovie(MovieUITO movieUITO) {
+		movieRepo.deleteById(movieUITO.getMovieId());
+	}
 }

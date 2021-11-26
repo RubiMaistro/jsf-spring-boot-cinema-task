@@ -4,6 +4,7 @@ import com.jsfspring.crudtask.service.MovieService;
 import com.jsfspring.crudtask.uito.MovieUITO;
 import com.jsfspring.crudtask.uito.ViewerUITO;
 import org.primefaces.context.RequestContext;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.annotation.SessionScope;
@@ -32,19 +33,19 @@ public class MovieController {
     public void doSaveMovie() {
         System.out.println(this.getMovieUiTO());
         movieService.doSaveMovie(this.getMovieUiTO());
-
+        getAllMovie();
+        this.setMovieUiToList(new MovieUITO());
         RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
-                "Viewer Details", "Viewer Details added/Updated Successfully."));
-
+                "Movie Details", "Movie Details added/Updated Successfully."));
+        this.movieUiTO = new MovieUITO();
     }
 
     /**
-     * Default load all the Viewer info
+     * Default load all the Movie info
      */
     @PostConstruct
-    public void getAllViewer() {
-        if (!this.getViewerUiToList().isEmpty()) {
-            this.getViewerUiToList().clear();
+    public void getAllMovie() {
+        if (!this.getMovieUiToList().isEmpty()) {
             this.getMovieUiToList().clear();
         }
         System.out.println(" >>>>>>>>>>>>> " + movieService);
@@ -52,15 +53,20 @@ public class MovieController {
         this.setActionLabel("Add");
     }
 
-    public void setViewerUiTO(ViewerUITO viewerUiTO) {
-        this.movieUiTO = movieUiTO;
+    /**
+     * Remove selected Viewer info
+     *
+     * @return
+     */
+    public void deleteMovie(MovieUITO movieUITO) {
+        movieService.doDeleteMovie(movieUITO);
+        getAllMovie();
     }
 
-    public List<MovieUITO> getViewerUiToList() {
-        if (null == movieUiToList) {
-            movieUiToList = new ArrayList<>();
-        }
-        return movieUiToList;
+    public void editMovie(MovieUITO movieUITO) {
+        this.setActionLabel("Update");
+        BeanUtils.copyProperties(movieUITO, this.getMovieUiTO());
+        System.out.println(this.getMovieUiTO());
     }
 
     public MovieUITO getMovieUiTO() {
@@ -68,6 +74,10 @@ public class MovieController {
             movieUiTO = new MovieUITO();
         }
         return movieUiTO;
+    }
+
+    public void setMovieUiToList(MovieUITO movieUITO) {
+        this.movieUiTO = movieUITO;
     }
 
     public List<MovieUITO> getMovieUiToList() {

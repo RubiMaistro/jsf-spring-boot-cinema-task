@@ -16,30 +16,43 @@
         </f:view>
     </ui:define>
     <ui:define name="content">
-        <h:form id="MovieForm" style="width: 50%">
-            <p:panel header="Movie Info" id="movieInfoPnl">
+        <h:form class="form" id="movieForm" style="width: 50%">
+            <p:panel class="p-add" header="Movie Info" id="movieInfoPnl">
                 <h:panelGrid columns="2">
-                    <p:outputLabel for="name" value="Movie name: " />
-                    <p:inputText id="name" size="40"
-                                 value="#{movieController.movieUiTO.movieName}" required="true"
-                                 requiredMessage="Please enter the movie name" />
+                        <p:outputLabel for="name" value="Movie name: " />
+                        <p:inputText id="name" size="40"
+                                    value="#{movieController.movieUiTO.movieName}" required="true"
+                                    requiredMessage="Please enter the movie name" />
                     <h:commandButton value="#{movieController.actionLabel}"
                                      action="#{movieController.doSaveMovie}">
-                        <f:ajax execute="MovieForm" render="movielist movieInfoPnl" />
+                        <f:ajax execute="movieForm" render="movielist movieInfoPnl" />
                     </h:commandButton>
                 </h:panelGrid>
             </p:panel>
 
-            <p:panel header="Movie List" id="movielist">
-                <p:dataTable id="table" var="movie"
+            <p:panel class="p-list" header="Movie List" id="movielist">
+                <p:dataTable class="p-table" id="table" var="movie"
                              value="#{movieController.movieUiToList}">
-                    <p:column>
-                        <f:facet name="header"># Movie Id</f:facet>
+                    <p:column class="t-id">
+                        <f:facet name="header">Movie ID</f:facet>
                         <h:outputText value="#{movie.movieId}" />
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">Name</f:facet>
+                    <p:column class="t-item">
+                        <f:facet name="header">Movie Name</f:facet>
                         <h:outputText value="#{movie.movieName}" />
+                    </p:column>
+                    <p:column class="t-item" id="action">
+                        <f:facet name="header">Action</f:facet>
+                        <h:commandLink value="Edit"
+                                       action="#{movieController.editMovie(movie)}">
+                            <f:ajax execute="action" render="movieForm" />
+                        </h:commandLink> /
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <h:commandLink value="Delete"
+                                           action="#{movieController.deleteMovie(movie)}">
+                                <f:ajax execute="action" render="table" />
+                            </h:commandLink>
+                        </sec:authorize>
                     </p:column>
                 </p:dataTable>
             </p:panel>

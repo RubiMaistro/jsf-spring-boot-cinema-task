@@ -90,7 +90,6 @@ public class ViewerServiceImpl implements ViewerService {
 	@Override
 	@Transactional
 	public void doDeleteViewer(ViewerUITO viewerUiTO) {
-
 		viewerRepo.deleteById(viewerUiTO.getViewerId());
 	}
 

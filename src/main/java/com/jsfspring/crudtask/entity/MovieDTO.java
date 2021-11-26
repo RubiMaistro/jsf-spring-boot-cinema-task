@@ -1,32 +1,29 @@
 package com.jsfspring.crudtask.entity;
 
+import org.hibernate.annotations.NamedQuery;
+
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
 @Table(name = "MOVIES")
-public class MovieDTO<movieName> implements Serializable {
+@NamedQuery(name = "MovieDTO.findAll", query = "SELECT a FROM MovieDTO a")
+public class MovieDTO implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "MOVIE_ID")
 	private Long movieId;
-	@Column(name = "Movie_Name")
+	@Column(name = "MOVIE_NAME")
 	private String movieName;
 
-	@OneToMany(mappedBy = "movieDTO")
+	@OneToMany(fetch =  FetchType.LAZY)
 	private List<ViewerDTO> viewerdtolst;
 
 	public Long getMovieId() { return movieId; }
