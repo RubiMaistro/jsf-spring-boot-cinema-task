@@ -14,36 +14,30 @@ import java.util.ArrayList;
 
 @Entity
 @Table(name = "MOVIES")
-public class MovieDTO implements Serializable {
+public class MovieDTO<movieName> implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "DEPT_ID")
-	private Long deptId;
-	@Column(name = "Dept_Name")
-	private String deptName;
+	@Column(name = "MOVIE_ID")
+	private Long movieId;
+	@Column(name = "Movie_Name")
+	private String movieName;
 
 	@OneToMany(mappedBy = "movieDTO")
 	private List<ViewerDTO> viewerdtolst;
 
-	public Long getDeptId() {
-		return deptId;
-	}
+	public Long getMovieId() { return movieId; }
 
-	public void setDeptId(Long deptId) {
-		this.deptId = deptId;
-	}
+	public void setMovieId(Long movieId) { this.movieId = movieId; }
 
-	public String getDeptName() {
-		return deptName;
-	}
+	public String getMovieName() { return movieName; }
 
-	public void setDeptName(String deptName) {
-		this.deptName = deptName;
-	}
+	public void setMovieName(String movieName) { this.movieName = movieName; }
+
+	public void setViewerdtolst(List<ViewerDTO> viewerdtolst) { this.viewerdtolst = viewerdtolst; }
 
 	public List<ViewerDTO> getViewerdtolst() {
 		if (null == viewerdtolst) {
@@ -52,7 +46,4 @@ public class MovieDTO implements Serializable {
 		return viewerdtolst;
 	}
 
-	public void setViewerdtolst(List<ViewerDTO> viewerdtolst) {
-		this.viewerdtolst = viewerdtolst;
-	}
 }

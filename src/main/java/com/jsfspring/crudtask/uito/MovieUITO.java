@@ -9,40 +9,35 @@ public class MovieUITO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Long deptId;
-	private String deptName;
+	private Long movieId;
+	private String movieName;
 
-	private List<ViewerUITO> viewerUITOLst;
-
-	public Long getDeptId() {
-		return deptId;
+	public Long getMovieId() {
+		return movieId;
 	}
 
-	public void setDeptId(Long deptId) {
-		this.deptId = deptId;
+	public void setMovieId(Long movieId) {
+		this.movieId = movieId;
 	}
 
-	public String getDeptName() {
-		return deptName;
+	public String getMovieName() {
+		return movieName;
 	}
 
-	public void setDeptName(String deptName) {
-		this.deptName = deptName;
+	public void setMovieName(String movieName) {
+		this.movieName = movieName;
 	}
 
-	public List<ViewerUITO> getViewerUITOLst() {
-		return viewerUITOLst;
-	}
-
-	public void setViewerUITOLst(List<ViewerUITO> viewerUITOLst) {
-		this.viewerUITOLst = viewerUITOLst;
+	@Override
+	public String toString() {
+		return "MovieUITO [movieId=" + movieId + ", movieName=" + movieName + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((deptId == null) ? 0 : deptId.hashCode());
+		result = prime * result + ((movieId == null) ? 0 : movieId.hashCode());
 		return result;
 	}
 
@@ -55,10 +50,10 @@ public class MovieUITO implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		MovieUITO other = (MovieUITO) obj;
-		if (deptId == null) {
-			if (other.deptId != null)
+		if (movieId == null) {
+			if (other.movieId != null)
 				return false;
-		} else if (!deptId.equals(other.deptId))
+		} else if (!movieId.equals(other.movieId))
 			return false;
 		return true;
 	}

@@ -47,13 +47,15 @@ public class ViewerServiceImpl implements ViewerService {
 
 	private ViewerDTO UiToToDto(ViewerUITO viewerUiTO) {
 		ViewerDTO dto = new ViewerDTO();
-		MovieDTO deptDto = new MovieDTO();
+		MovieDTO movieDto = new MovieDTO();
+
 		BeanUtils.copyProperties(viewerUiTO, dto);
-		BeanUtils.copyProperties(viewerUiTO.getMovieUITO(), deptDto);
-		dto.setMovieDTO(deptDto);
+		BeanUtils.copyProperties(viewerUiTO.getMovieUITO(), movieDto);
+		dto.setMovieDTO(movieDto);
+
 		List<ViewerDTO> lst = new ArrayList<>();
 		lst.add(dto);
-		deptDto.getViewerdtolst().addAll(lst);
+		movieDto.getViewerdtolst().addAll(lst);
 		return dto;
 	}
 

@@ -13,19 +13,19 @@ import com.jsfspring.crudtask.service.MovieService;
 import com.jsfspring.crudtask.uito.MovieUITO;
 
 @Service
-public class DeptConverter implements Converter {
+public class MovieConverter implements Converter {
 
 	@Autowired
 	private MovieService movieService;
 
-	private static final Logger LOG = LoggerFactory.getLogger(DeptConverter.class.getName());
+	private static final Logger LOG = LoggerFactory.getLogger(MovieConverter.class.getName());
 
 	@Override
 	public Object getAsObject(FacesContext fc, UIComponent uic, String string) {
 		LOG.info("getAsObject: " + movieService);
 
 		MovieUITO movieUITO = new MovieUITO();
-		movieUITO.setDeptName(string);
+		movieUITO.setMovieName(string);
 		movieUITO = movieService.getMovie(movieUITO);
 		System.out.println(movieUITO.toString());
 		return movieUITO;
@@ -35,9 +35,9 @@ public class DeptConverter implements Converter {
 	public String getAsString(FacesContext fc, UIComponent uic, Object obj) {
 		LOG.info("getAsString obj class: " + obj.getClass().getName());
 		if (obj instanceof MovieUITO) {
-			MovieUITO dept = (MovieUITO) obj;
-			LOG.info("getAsString def name: " + dept.getDeptName());
-			return dept.getDeptName();
+			MovieUITO movie = (MovieUITO) obj;
+			LOG.info("getAsString def name: " + movie.getMovieName());
+			return movie.getMovieName();
 		} else {
 			StringBuilder sbError = new StringBuilder("The object of class ");
 			sbError.append(obj.getClass().getName()).append(" is not of MovieUITO");

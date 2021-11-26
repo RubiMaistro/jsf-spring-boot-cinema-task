@@ -8,20 +8,42 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:sec="http://www.springframework.org/security/tags">
 <ui:composition template="layout.xhtml">
+    <ui:define name="header">
+        <f:view>
+            <h:head>
+                <title>Movie</title>
+            </h:head>
+        </f:view>
+    </ui:define>
     <ui:define name="content">
         <h:form id="MovieForm" style="width: 50%">
-            <p:panel header="Movie" id="movieInfoPnl">
-                <h:panelGrid columns="2" rows="1">
+            <p:panel header="Movie Info" id="movieInfoPnl">
+                <h:panelGrid columns="2">
                     <p:outputLabel for="name" value="Movie name: " />
-
+                    <p:inputText id="name" size="40"
+                                 value="#{movieController.movieUiTO.movieName}" required="true"
+                                 requiredMessage="Please enter the movie name" />
+                    <h:commandButton value="#{movieController.actionLabel}"
+                                     action="#{movieController.doSaveMovie}">
+                        <f:ajax execute="MovieForm" render="movielist movieInfoPnl" />
+                    </h:commandButton>
                 </h:panelGrid>
             </p:panel>
 
-            <p:panel header="Movie list" id="movieList">
-                <p:dataTable id="table" var="viewer">
-
+            <p:panel header="Movie List" id="movielist">
+                <p:dataTable id="table" var="movie"
+                             value="#{movieController.movieUiToList}">
+                    <p:column>
+                        <f:facet name="header"># Movie Id</f:facet>
+                        <h:outputText value="#{movie.movieId}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Name</f:facet>
+                        <h:outputText value="#{movie.movieName}" />
+                    </p:column>
                 </p:dataTable>
             </p:panel>
+
         </h:form>
     </ui:define>
 </ui:composition>

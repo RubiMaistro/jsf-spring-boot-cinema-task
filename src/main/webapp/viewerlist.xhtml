@@ -8,6 +8,13 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:sec="http://www.springframework.org/security/tags">
 <ui:composition template="layout.xhtml">
+	<ui:define name="header">
+		<f:view>
+			<h:head>
+				<title>Movie</title>
+			</h:head>
+		</f:view>
+	</ui:define>
 	<ui:define name="content">
 		<h:form id="viewerForm">
 					<p:panel header="Viewer Info" id="viewerInfoPnl">
@@ -29,13 +36,13 @@
 							<p:outputLabel for="vieweraddres" value="Address " />
 							<p:inputTextarea id="vieweraddres" rows="4" cols="50"
 								value="#{viewerController.viewerUiTO.address1}" />
-							<p:outputLabel for="viewerdept" value="Movie " />
+							<p:outputLabel for="viewermovie" value="Movie " />
 
-							<p:selectOneMenu id="viewerdept"
+							<p:selectOneMenu id="viewermovie"
 								value="#{viewerController.viewerUiTO.movieUITO}"
-								style="width:150px" converter="#{deptConverter}">
+								style="width:150px" converter="#{movieConverter}">
 								<f:selectItems value="#{viewerController.movieUiToList}"
-									var="movieUITO" itemLabel="#{movieUITO.deptName}"
+									var="movieUITO" itemLabel="#{movieUITO.movieName}"
 									itemValue="#{movieUITO}" />
 
 							</p:selectOneMenu>
@@ -69,7 +76,7 @@
 					</p:column>
 					<p:column>
 						<f:facet name="header">Movie </f:facet>
-						<h:outputText value="#{viewer.movieUITO.deptName}" />
+						<h:outputText value="#{viewer.movieUITO.movieName}" />
 					</p:column>
 					<p:column id="action">
 						<f:facet name="header">Action</f:facet>

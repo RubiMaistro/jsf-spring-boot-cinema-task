@@ -43,7 +43,7 @@ public class ViewerDTO implements Serializable {
 	private String emailId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "DEPT_ID")
+	@JoinColumn(name = "MOVIE_ID")
 	private MovieDTO movieDTO;
 
 	public Long getViewerId() {

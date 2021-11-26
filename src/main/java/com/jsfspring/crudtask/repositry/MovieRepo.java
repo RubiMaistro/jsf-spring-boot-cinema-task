@@ -8,5 +8,5 @@ import com.jsfspring.crudtask.entity.MovieDTO;
 @Repository
 public interface MovieRepo extends JpaRepository<MovieDTO, Long> {
 
-	MovieDTO findTitleByDeptName(String deptName);
+	MovieDTO findTitleByMovieName(String movieName);
 }

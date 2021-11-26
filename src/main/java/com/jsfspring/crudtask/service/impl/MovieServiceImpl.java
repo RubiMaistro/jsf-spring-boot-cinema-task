@@ -10,6 +10,8 @@ package com.jsfspring.crudtask.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jsfspring.crudtask.entity.ViewerDTO;
+import com.jsfspring.crudtask.uito.ViewerUITO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,32 @@ import com.jsfspring.crudtask.uito.MovieUITO;
 public class MovieServiceImpl implements MovieService {
 	@Autowired
 	private MovieRepo movieRepo;
+
+	@Override
+	@Transactional(readOnly = false)
+	public MovieUITO doSaveMovie(MovieUITO movieUITO) {
+		MovieDTO dto = UiToToDto(movieUITO);
+		dto = movieRepo.save(dto);
+		BeanUtils.copyProperties(dto, movieUITO);
+
+		dtoToUito(movieUITO, dto);
+		return movieUITO;
+	}
+
+	private void dtoToUito(MovieUITO movieUITO, MovieDTO dto) {
+		MovieUITO uitTO = movieUITO;
+		BeanUtils.copyProperties(dto, uitTO);
+	}
+
+	private MovieDTO UiToToDto(MovieUITO movieUITO) {
+		MovieDTO movieDto = new MovieDTO();
+		BeanUtils.copyProperties(movieUITO, movieDto);
+
+		List<MovieDTO> lst = new ArrayList<>();
+		lst.add(movieDto);
+
+		return movieDto;
+	}
 
 	@Override
 	public List<MovieUITO> getAllMovie() {
@@ -43,8 +71,8 @@ public class MovieServiceImpl implements MovieService {
 
 	@Override
 	public MovieUITO getMovie(MovieUITO movieUITO) {
-		System.out.println(">>>>> "+movieUITO.getDeptName());
-		MovieDTO dto = movieRepo.findTitleByDeptName(movieUITO.getDeptName());
+		System.out.println(">>>>> "+movieUITO.getMovieName());
+		MovieDTO dto = movieRepo.findTitleByMovieName(movieUITO.getMovieName());
 		MovieUITO uito = new MovieUITO();
 
 		BeanUtils.copyProperties(dto, uito);
